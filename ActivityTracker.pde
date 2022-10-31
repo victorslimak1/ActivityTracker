@@ -7,11 +7,14 @@ color accent=#F5F5F5;
 int d, mo, y, h, mi;
 int[] maxDays={31, 27, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-int goal;
+String goal="100";
+String newGoal;
 
 button nextDate=new button(345, 122.5, 35, 35, "+");
 button prevDate=new button(290, 122.5, 35, 35, "-");
-field goalField=new field(170,225,"200");
+field goalField=new field(170,225,goal);
+
+boolean done=false;
 
 
 void setup() {
@@ -53,7 +56,13 @@ void draw() {
 }
 
 void changeGoal(){
-  
+  done=false;
+  newGoal="";
+  while(!done){
+    println(newGoal);
+  }
+  done=false;
+  goal=newGoal;
 }
 
 void changeDate(int dir) {
@@ -88,5 +97,16 @@ void keyPressed() {
     println("==exit==");
     exit();
     break;
+  }
+  if (int(key)>=97&&int(key)<=122) {
+    newGoal+=key;
+  }
+  if (key==8) {
+    if (newGoal.length()>0) {
+      newGoal=newGoal.substring(0, newGoal.length()-1);
+    }
+  }
+  if(key==ENTER||key==RETURN){
+    done=true;
   }
 }
