@@ -11,6 +11,7 @@ int goal;
 
 button nextDate=new button(345, 122.5, 35, 35, "+");
 button prevDate=new button(290, 122.5, 35, 35, "-");
+field goalField=new field(170,225,"200");
 
 
 void setup() {
@@ -35,7 +36,9 @@ void draw() {
   prevDate.show();
 
   //Goal------------------
-  
+  textSize(23);
+  text("Goal: ",100,250);
+  goalField.show();
 
   //Buttons--------------------
   if (mousePressed) {
