@@ -41,6 +41,24 @@ void draw() {
 }
 
 void changeDate(int dir) {
+  d+=dir;
+  if (d>maxDays[mo-1]) {
+    d=1;
+    mo++;
+    if (mo==13) {
+      mo=1;
+      y++;
+    }
+  } else if (d==0) {
+    d=maxDays[mo-2];
+    mo--;
+    if (mo==0) {
+      mo=12;
+      y--;
+    }
+  }
+  
+  delay(100);
 }
 
 
