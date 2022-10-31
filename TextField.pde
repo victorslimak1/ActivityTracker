@@ -16,4 +16,10 @@ class field {
     fill(back);
     text(text, x, y+30);
   }
+
+
+  boolean update() {
+    textSize(35);
+    return(mouseX>x&&mouseX<x+textWidth(text)&&mouseY>y&&mouseY<y+35);
+  }
 }

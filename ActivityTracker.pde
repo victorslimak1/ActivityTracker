@@ -46,8 +46,14 @@ void draw() {
       changeDate(1);
     } else if (prevDate.updated()) {
       changeDate(-1);
+    } else if (goalField.update()) {
+      changeGoal();
     }
   }
+}
+
+void changeGoal(){
+  
 }
 
 void changeDate(int dir) {
