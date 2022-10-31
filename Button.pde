@@ -22,6 +22,12 @@ class button{
     fill(fore);
     rect(x,y,w,h);
     
+    if(text!=""){
+      fill(accent);
+      textSize(35);
+      text(text,x+10,y+30);
+    }
+    
   }
 
 }

@@ -7,9 +7,12 @@ color accent=#F5F5F5;
 int d, mo, y, h, mi;
 int[] maxDays={31, 27, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
+button nextDate=new button(345,122.5,35,35,"+");
+button prevDate=new button(290,122.5,35,35,"-");
+
 
 void setup(){
-  size(700,700);
+  size(500,700);
   
   d=day();
   mo=month();
@@ -24,6 +27,9 @@ void draw(){
   fill(accent);
   textSize(23);
   text("Date: "+d+"/"+mo+"/"+y, 100, 150);
+  
+  nextDate.show();
+  prevDate.show();
   
   
 }
