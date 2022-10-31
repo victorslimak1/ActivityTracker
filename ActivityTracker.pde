@@ -1,3 +1,8 @@
+color back=#333333; 
+color fore=#969696; 
+color darkb=#0073D1;
+color lightb=#69DDFF;
+color accent=#F5F5F5;
 
 
 void setup(){
@@ -7,7 +12,7 @@ void setup(){
 
 
 void draw(){
-  background(255);
+  background(back);
   
   
 }
