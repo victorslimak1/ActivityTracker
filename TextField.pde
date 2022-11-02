@@ -16,6 +16,8 @@ class field {
     fill(back);
     text(text, x, y+30);
   }
+  
+
 
 
   boolean update() {

@@ -8,13 +8,13 @@ int d, mo, y, h, mi;
 int[] maxDays={31, 27, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 String goal="100";
-String newGoal;
+String newGoal="";
 
 button nextDate=new button(345, 122.5, 35, 35, "+");
 button prevDate=new button(290, 122.5, 35, 35, "-");
-field goalField=new field(170,225,goal);
+field goalField=new field(170, 225, goal);
 
-boolean done=false;
+boolean writingGoal=false;
 
 
 void setup() {
@@ -40,10 +40,42 @@ void draw() {
 
   //Goal------------------
   textSize(23);
-  text("Goal: ",100,250);
+  text("Goal: ", 100, 250);
   goalField.show();
+  if(writingGoal){
+      goalField.text=newGoal;
+  }
+  
+  //Time------------
+  fill(accent);
+  textSize(23);
+  text("Time: "+d+"/"+mo+"/"+y, 100, 350);
 
-  //Buttons--------------------
+  nextDate.show();
+  prevDate.show();
+  
+  
+  //Quantity---------------
+  textSize(23);
+  text("Quantity: ", 100, 450);
+  goalField.show();
+  if(writingGoal){
+      goalField.text=newGoal;
+  }
+  
+  
+  //SUBMIT----------------------
+  fill(accent);
+  textSize(23);
+  text("Submit: "+d+"/"+mo+"/"+y, 100, 550);
+
+  nextDate.show();
+  prevDate.show();
+  
+  
+  
+
+  //mousePressed stuff--------------------
   if (mousePressed) {
     if (nextDate.updated()) {
       changeDate(1);
@@ -55,14 +87,9 @@ void draw() {
   }
 }
 
-void changeGoal(){
-  done=false;
+void changeGoal() {
   newGoal="";
-  while(!done){
-    println(newGoal);
-  }
-  done=false;
-  goal=newGoal;
+  writingGoal=true;
 }
 
 void changeDate(int dir) {
@@ -93,20 +120,16 @@ void keyPressed() {
     println("==setup==");
     setup();
     break;
-  case 'w':
-    println("==exit==");
-    exit();
-    break;
   }
-  if (int(key)>=97&&int(key)<=122) {
+  if (int(key)>=48&&int(key)<=57&&writingGoal) {
     newGoal+=key;
   }
-  if (key==8) {
+  if (key==8&writingGoal) {
     if (newGoal.length()>0) {
       newGoal=newGoal.substring(0, newGoal.length()-1);
     }
   }
-  if(key==ENTER||key==RETURN){
-    done=true;
+  if(key==ENTER){
+    writingGoal=false;
   }
 }
