@@ -25,6 +25,8 @@ button prevM=new button(190, 355, 20, 20, "̌");
 
 field amountField=new field(200, 425, amount);
 
+button submit=new button(200,550, 100,35, "SUBMIT");
+
 
 boolean writingGoal=false;
 boolean writingAmount=false;
@@ -98,9 +100,7 @@ void draw() {
   textAlign(TOP, LEFT);
 
   //SUBMIT----------------------
-  fill(accent);
-  textSize(23);
-  text("Submit: ", 100, 550);
+  submit.show();
 
 
 
