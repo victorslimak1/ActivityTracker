@@ -107,8 +107,38 @@ void draw() {
       changeDate(-1);
     } else if (goalField.update()) {
       changeGoal();
+    } else if (nextH.updated()) {
+      changeH(1);
+    } else if (prevH.updated()) {
+      changeH(-1);
+    } else if (nextM.updated()) {
+      changeM(1);
+    } else if (prevM.updated()) {
+      changeM(-1);
     }
   }
+}
+
+void changeH(int dir) {
+  h+=dir;
+  if (h==24) {
+    h=0;
+  } else if (h==-1) {
+    h=23;
+  }
+
+  delay(100);
+}
+
+void changeM(int dir) {
+  mi+=dir;
+  if (mi==60) {
+    mi=0;
+  } else if (mi==-1) {
+    mi=59;
+  }
+
+  delay(100);
 }
 
 void changeGoal() {
