@@ -10,6 +10,9 @@ int[] maxDays={31, 27, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 String goal="100";
 String newGoal="";
 
+String amount="10";
+String newAmount="";
+
 button nextDate=new button(345, 122.5, 35, 35, ">>");
 button prevDate=new button(290, 122.5, 35, 35, "<<");
 
@@ -20,7 +23,11 @@ button prevH=new button(160, 355, 20, 20, "̌");
 button nextM=new button(190, 310, 20, 20, "^");
 button prevM=new button(190, 355, 20, 20, "̌");
 
+field amountField=new field(200, 425, amount);
+
+
 boolean writingGoal=false;
+boolean writingAmount=false;
 
 
 void setup() {
@@ -79,12 +86,12 @@ void draw() {
 
   textAlign(TOP, LEFT);
 
-  //Quantity---------------
+  //Amount---------------
   textSize(23);
-  text("Quantity: ", 100, 450);
-  goalField.show();
-  if (writingGoal) {
-    goalField.text=newGoal;
+  text("Amount: ", 100, 450);
+  amountField.show();
+  if (writingAmount) {
+    amountField.text=newAmount;
   }
 
 
@@ -115,8 +122,15 @@ void draw() {
       changeM(1);
     } else if (prevM.updated()) {
       changeM(-1);
-    }
+    }else if (amountField.update()) {
+      changeAmount();
+    } 
   }
+}
+
+void changeAmount() {
+  newAmount="";
+  writingAmount=true;
 }
 
 void changeH(int dir) {
@@ -187,7 +201,17 @@ void keyPressed() {
       newGoal=newGoal.substring(0, newGoal.length()-1);
     }
   }
+  
+  if (int(key)>=48&&int(key)<=57&&writingAmount) {
+    newAmount+=key;
+  }
+  if (key==8&writingAmount) {
+    if (newAmount.length()>0) {
+      newAmount=newAmount.substring(0, newAmount.length()-1);
+    }
+  }
   if (key==ENTER) {
     writingGoal=false;
+    writingAmount=false;
   }
 }
