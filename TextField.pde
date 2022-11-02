@@ -10,13 +10,15 @@ class field {
   }
 
   void show() {
+    textAlign(CENTER, CENTER);
+
     fill(accent);
     textSize(35);
     rect(x, y, textWidth(text), 35);
     fill(back);
-    text(text, x, y+30);
+    text(text, x+textWidth(text)/2, y+35/2-5);
   }
-  
+
 
 
 

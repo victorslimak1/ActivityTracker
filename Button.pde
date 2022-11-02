@@ -22,11 +22,11 @@ class button{
     fill(fore);
     rect(x,y,w,h);
     
-    //if(text!=""){
-      fill(accent);
-      textSize(23);
-      text(text,x+10,y+30);
-    //}
+   fill(accent);
+   textAlign(CENTER,CENTER);
+   textSize(23);
+   text(text,x+w/2,y+h/2);
+    
     
   }
   
