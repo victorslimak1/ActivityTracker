@@ -148,16 +148,27 @@ void submit(){
     data.add(tempList);
   }
   
+  int lastRow = data.size()-1;
+  
+  println(data.get(lastRow));
+  
+  if(data.get(lastRow).get(0)==d&&data.get(lastRow).get(1)==mo&&data.get(lastRow).get(2)==y){
+    print("today");
+  }
+  
+  
   //Writing new data to ArrayList
-  data.add(new IntList());
-  data.get(0).append(14);
-  data.get(0).append(30);
-  data.get(0).append(14);
+  
+  //only need to add new IntList if creating a new day
+  //data.add(new IntList());
+  //data.get(0).append(14);
+  //data.get(0).append(30);
+  //data.get(0).append(14);
 
 
 
 
-  //Writing new data to txt document
+  //Writing new data to .txt document
   String[] temp=new String[data.size()];  
   for (int i=0; i<data.size(); i++) {
     String tempLine="";
