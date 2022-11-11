@@ -32,6 +32,11 @@ boolean writingGoal=false;
 boolean writingAmount=false;
 
 
+String[] lines;
+ArrayList<IntList> data=new ArrayList<IntList>();
+
+
+
 void setup() {
   size(500, 700);
 
@@ -131,6 +136,17 @@ void draw() {
 }
 
 void submit(){
+  lines = loadStrings("trackingSheet.txt");
+  
+  for (int i = 0; i < lines.length; i++) {
+    IntList tempList=new IntList();
+    int[] tempArr=int(split(lines[i], ","));
+    for (int j=0; j<tempArr.length; j++) {
+      tempList.append(tempArr[j]);
+    }
+    data.add(tempList);
+  }
+  
   
 }
 
