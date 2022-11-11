@@ -136,6 +136,7 @@ void draw() {
 }
 
 void submit(){
+  //Reading data
   lines = loadStrings("trackingSheet.txt");
   
   for (int i = 0; i < lines.length; i++) {
@@ -147,6 +148,28 @@ void submit(){
     data.add(tempList);
   }
   
+  //Writing new data to ArrayList
+  data.add(new IntList());
+  data.get(0).append(14);
+  data.get(0).append(30);
+  data.get(0).append(14);
+
+
+
+
+  //Writing new data to txt document
+  String[] temp=new String[data.size()];  
+  for (int i=0; i<data.size(); i++) {
+    String tempLine="";
+    for (int j=0; j<data.get(i).size(); j++) {
+      tempLine=tempLine+str(data.get(i).get(j))+"";
+      if (j<data.get(i).size()-1) {
+        tempLine=tempLine+",";
+      }
+    }
+    temp[i]=tempLine;
+  }
+  saveStrings("trackingSheet.txt", temp);
   
 }
 
