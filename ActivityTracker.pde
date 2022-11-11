@@ -25,7 +25,7 @@ button prevM=new button(190, 355, 20, 20, "̌");
 
 field amountField=new field(200, 425, amount);
 
-button submit=new button(200,550, 100,35, "SUBMIT");
+button submit=new button(200, 550, 100, 35, "SUBMIT");
 
 
 boolean writingGoal=false;
@@ -127,18 +127,18 @@ void draw() {
       changeM(1);
     } else if (prevM.updated()) {
       changeM(-1);
-    }else if (amountField.update()) {
+    } else if (amountField.update()) {
       changeAmount();
-    }else if (submit.updated()) {
+    } else if (submit.updated()) {
       submit();
-    } 
+    }
   }
 }
 
-void submit(){
+void submit() {
   //Reading data
   lines = loadStrings("trackingSheet.txt");
-  
+
   for (int i = 0; i < lines.length; i++) {
     IntList tempList=new IntList();
     int[] tempArr=int(split(lines[i], ","));
@@ -147,29 +147,31 @@ void submit(){
     }
     data.add(tempList);
   }
-  
+
   int lastRow = data.size()-1;
-  
-  println(data.get(lastRow));
-  
-  if(data.get(lastRow).get(0)==d&&data.get(lastRow).get(1)==mo&&data.get(lastRow).get(2)==y){
-    print("today");
+
+  if (lastRow!=-1) {
+    if (data.get(lastRow).get(0)==d&&data.get(lastRow).get(1)==mo&&data.get(lastRow).get(2)==y) {
+      data.get(lastRow).append(h);
+      data.get(lastRow).append(mi);
+      data.get(lastRow).append(int(amountField.text));
+    }
+  } else {
+    data.add(new IntList());
+    data.get(lastRow+1).append(d);
+    data.get(lastRow+1).append(mo);
+    data.get(lastRow+1).append(y);
+    data.get(lastRow+1).append(int(goalField.text));
+    data.get(lastRow+1).append(h);
+    data.get(lastRow+1).append(mi);
+    data.get(lastRow+1).append(int(amountField.text));
   }
-  
-  
-  //Writing new data to ArrayList
-  
-  //only need to add new IntList if creating a new day
-  //data.add(new IntList());
-  //data.get(0).append(14);
-  //data.get(0).append(30);
-  //data.get(0).append(14);
 
 
 
 
   //Writing new data to .txt document
-  String[] temp=new String[data.size()];  
+  String[] temp=new String[data.size()];
   for (int i=0; i<data.size(); i++) {
     String tempLine="";
     for (int j=0; j<data.get(i).size(); j++) {
@@ -181,7 +183,10 @@ void submit(){
     temp[i]=tempLine;
   }
   saveStrings("trackingSheet.txt", temp);
-  
+
+
+
+  delay(100);
 }
 
 void changeAmount() {
@@ -257,7 +262,7 @@ void keyPressed() {
       newGoal=newGoal.substring(0, newGoal.length()-1);
     }
   }
-  
+
   if (int(key)>=48&&int(key)<=57&&writingAmount) {
     newAmount+=key;
   }
