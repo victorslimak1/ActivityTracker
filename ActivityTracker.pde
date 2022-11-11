@@ -124,8 +124,14 @@ void draw() {
       changeM(-1);
     }else if (amountField.update()) {
       changeAmount();
+    }else if (submit.updated()) {
+      submit();
     } 
   }
+}
+
+void submit(){
+  
 }
 
 void changeAmount() {
