@@ -150,22 +150,31 @@ void submit() {
 
   int lastRow = data.size()-1;
 
-  if (lastRow!=-1) {
-    if (data.get(lastRow).get(0)==d&&data.get(lastRow).get(1)==mo&&data.get(lastRow).get(2)==y) {
+  if (lastRow!=-1) {//When the ArrayList is not empty
+    if (data.get(lastRow).get(0)==d&&data.get(lastRow).get(1)==mo&&data.get(lastRow).get(2)==y) {//If the last row is the date that is being submitted
       data.get(lastRow).append(h);
       data.get(lastRow).append(mi);
       data.get(lastRow).append(int(amountField.text));
+    } else {
+      data.add(new IntList());
+      data.get(lastRow+1).append(d);
+      data.get(lastRow+1).append(mo);
+      data.get(lastRow+1).append(y);
+      data.get(lastRow+1).append(int(goalField.text));
+      data.get(lastRow+1).append(h);
+      data.get(lastRow+1).append(mi);
+      data.get(lastRow+1).append(int(amountField.text));
     }
-  } else {
-    data.add(new IntList());
-    data.get(lastRow+1).append(d);
-    data.get(lastRow+1).append(mo);
-    data.get(lastRow+1).append(y);
-    data.get(lastRow+1).append(int(goalField.text));
-    data.get(lastRow+1).append(h);
-    data.get(lastRow+1).append(mi);
-    data.get(lastRow+1).append(int(amountField.text));
-  }
+  }else {
+      data.add(new IntList());
+      data.get(lastRow+1).append(d);
+      data.get(lastRow+1).append(mo);
+      data.get(lastRow+1).append(y);
+      data.get(lastRow+1).append(int(goalField.text));
+      data.get(lastRow+1).append(h);
+      data.get(lastRow+1).append(mi);
+      data.get(lastRow+1).append(int(amountField.text));
+    }
 
 
 
