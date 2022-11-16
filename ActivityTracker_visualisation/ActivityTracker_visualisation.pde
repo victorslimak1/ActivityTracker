@@ -13,8 +13,8 @@ ArrayList<Set>[] sets;
 
 
 
-int avgPerRecDay;
-int avgPerAllDay;
+float avgPerRecDay;
+float avgPerAllDay;
 int total;
 int maxInDay;
 int maxInSet;
@@ -37,11 +37,11 @@ void setup() {
   }
 
 
-  dates=new int[data.size()-1][3];
-  sets=new ArrayList[data.size()-1];
-  goals=new int[data.size()-1];
+  dates=new int[data.size()][3];
+  sets=new ArrayList[data.size()];
+  goals=new int[data.size()];
 
-  for (int i=0; i<data.size()-1; i++) {
+  for (int i=0; i<data.size(); i++) {
     dates[i][0]=data.get(i).get(0);
     dates[i][1]=data.get(i).get(1);
     dates[i][2]=data.get(i).get(2);
@@ -61,7 +61,8 @@ void setup() {
   println(total);
   println(maxInDay);
   println(maxInSet);
-}
+  println(avgPerAllDay);
+} //<>//
 
 
 void getTotals() {
@@ -72,7 +73,7 @@ void getTotals() {
 
   for (int i=0; i<sets.length; i++) {
     setSum=0;
-    for (int j=0; j<sets[i].size()-1; j++) {
+    for (int j=0; j<sets[i].size(); j++) {
       int amount=sets[i].get(j).amount;
       setSum+=amount;
       if (amount>maxInSet) {
@@ -85,6 +86,7 @@ void getTotals() {
     }
   }
   total=sum;
+  avgPerAllDay=float(total)/sets.length;
 }
 
 
