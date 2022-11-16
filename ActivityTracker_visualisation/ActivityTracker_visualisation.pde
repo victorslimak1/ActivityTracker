@@ -1,4 +1,7 @@
-String[] lines; //<>//
+import processing.pdf.*; //<>//
+
+
+String[] lines;
 ArrayList<IntList> data=new ArrayList<IntList>();
 
 color back=#333333;
@@ -21,9 +24,9 @@ int maxInSet;
 
 
 void setup() {
-  size(700, 900);
-  
-  hint(ENABLE_NATIVE_FONTS);
+  //size(700, 900, PDF, "ActivityTracker.pdf");
+  size(700,900);
+
 
   lines = loadStrings("../trackingSheet.txt");
 
@@ -55,14 +58,8 @@ void setup() {
     }
   }
 
-  println(data);
 
   getTotals();
-
-  println(total);
-  println(maxInDay);
-  println(maxInSet);
-  println(avgPerAllDay);
 }
 
 
@@ -96,9 +93,20 @@ void getTotals() {
 void draw() {
   background(back);
   showTotals();
+  showBarChart();
+  
+  //exit();
+}
+
+void showBarChart() {
+ stroke(accent);
+ strokeWeight(4);
+ line(width/7,190,width/7,430);
+ line(width/7-20,410,6*width/7+20,410);
 }
 
 void showTotals() {
+  textFont(createFont("AppleSymbols", 20));
   stroke(accent);
   textAlign(CENTER, CENTER);
   textSize(20);
