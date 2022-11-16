@@ -1,10 +1,10 @@
-# ActivityTracker
- 
- 
- Colors: 
-
-back=#333333
-fore=#969696 
-darkb=#0073D1
-lightb=#69DDFF
-accent=#F5F5F5
+# ActivityTracker <br>
+ <br>
+ <br>
+ Colors: <br>
+<br>
+back=#333333 <br>
+fore=#969696 <br>
+darkb=#0073D1 <br>
+lightb=#69DDFF <br>
+accent=#F5F5F5 <br>
