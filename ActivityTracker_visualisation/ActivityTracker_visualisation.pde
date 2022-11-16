@@ -1,4 +1,4 @@
-String[] lines;
+String[] lines; //<>//
 ArrayList<IntList> data=new ArrayList<IntList>();
 
 color back=#333333;
@@ -22,7 +22,6 @@ int maxInSet;
 
 void setup() {
   size(700, 900);
-  background(back);
 
   lines = loadStrings("../trackingSheet.txt");
 
@@ -62,7 +61,7 @@ void setup() {
   println(maxInDay);
   println(maxInSet);
   println(avgPerAllDay);
-} //<>//
+}
 
 
 void getTotals() {
@@ -93,4 +92,22 @@ void getTotals() {
 
 
 void draw() {
+  background(back);
+  showTotals();
+}
+
+void showTotals() {
+  stroke(accent);
+  textAlign(CENTER, CENTER);
+  textSize(20);
+  text("Average per Day: ", width/5, 80);
+  text("Total #: ", 2*width/5, 80);
+  text("Max in 1 Day: ", 3*width/5, 80);
+  text("Max in 1 Set: ", 4*width/5, 80);
+
+  textSize(30);
+  text(avgPerAllDay, width/5, 120);
+  text(total, 2*width/5, 120);
+  text(maxInDay, 3*width/5, 120);
+  text(maxInSet, 4*width/5, 120);
 }
