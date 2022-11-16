@@ -22,6 +22,8 @@ int maxInSet;
 
 void setup() {
   size(700, 900);
+  
+  hint(ENABLE_NATIVE_FONTS);
 
   lines = loadStrings("../trackingSheet.txt");
 
