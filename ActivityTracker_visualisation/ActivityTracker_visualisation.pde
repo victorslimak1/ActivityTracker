@@ -34,7 +34,16 @@ void setup() {
   goals=new int[data.size()-1];
 
   for (int i=0; i<data.size()-1; i++) {
-        
+    dates[i][0]=data.get(i).get(0);
+    dates[i][1]=data.get(i).get(1);
+    dates[i][2]=data.get(i).get(2);
+    goals[i]=data.get(i).get(3);
+    sets[i]=new ArrayList<Set>();
+    for(int j=4;j<data.get(i).size()-1;j+=3){
+      Set temp=new Set(data.get(i).get(j),data.get(i).get(j+1),data.get(i).get(j+2));
+      sets[i].add(temp);
+    }
+    
   }
 }
 
