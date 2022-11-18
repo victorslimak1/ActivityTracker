@@ -25,7 +25,7 @@ int maxInSet;
 
 void setup() {
   //size(700, 900, PDF, "ActivityTracker.pdf");
-  size(700,900);
+  size(700, 900);
 
 
   lines = loadStrings("../trackingSheet.txt");
@@ -94,20 +94,44 @@ void draw() {
   background(back);
   showTotals();
   showBarChart();
-  
+
   //exit();
 }
 
 void showBarChart() {
- stroke(accent);
- strokeWeight(4);
- line(width/7,190,width/7,430);
- line(width/7-20,410,6*width/7+20,410);
+
+
+  float spacing=((5*width/7)-40)/(sets.length);
+  float offset=(width/7)+20;
+  float wid=spacing/2;
+
+
+  fill(darkb);
+  stroke(fore);
+
+  for (int i=0; i<sets.length; i++) {
+    int sum=0;
+    for (int j=0; j<sets[i].size(); j++) {
+      sum+=sets[i].get(j).amount;
+    }
+    //line((spacing*(i+0.5))+offset,410,(spacing*(i+0.5))+offset,410-(200*sum/maxInDay));
+    rect(spacing*(i+0.5)+offset-wid/2, 410, wid, -(200*sum/maxInDay));
+  }
+
+  stroke(accent);
+  strokeWeight(4);
+  line(width/7, 190, width/7, 430);
+  line(width/7, 190, width/7-5, 195);
+  line(width/7, 190, width/7+5, 195);
+
+  line(width/7-20, 410, 6*width/7+20, 410);
+  line(6*width/7+20, 410, 6*width/7+15, 405);
+  line(6*width/7+20, 410, 6*width/7+15, 415);
 }
 
 void showTotals() {
   textFont(createFont("AppleSymbols", 20));
-  stroke(accent);
+  fill(accent);
   textAlign(CENTER, CENTER);
   textSize(20);
   text("Average per Day: ", width/5, 80);
