@@ -99,8 +99,6 @@ void draw() {
 }
 
 void showBarChart() {
-
-
   float spacing=((5*width/7)-40)/(sets.length);
   float offset=(width/7)+20;
   float wid=spacing/2;
@@ -108,6 +106,8 @@ void showBarChart() {
 
   fill(darkb);
   stroke(fore);
+  strokeWeight(4);
+
 
   for (int i=0; i<sets.length; i++) {
     int sum=0;
@@ -119,7 +119,6 @@ void showBarChart() {
   }
 
   stroke(accent);
-  strokeWeight(4);
   line(width/7, 190, width/7, 430);
   line(width/7, 190, width/7-5, 195);
   line(width/7, 190, width/7+5, 195);
