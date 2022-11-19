@@ -199,6 +199,7 @@ void submit() {
 }
 
 void changeAmount() {
+  writingGoal=false;
   newAmount="";
   writingAmount=true;
 }
@@ -226,6 +227,7 @@ void changeM(int dir) {
 }
 
 void changeGoal() {
+  writingAmount=false;
   newGoal="";
   writingGoal=true;
 }

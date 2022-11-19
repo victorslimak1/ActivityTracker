@@ -103,20 +103,40 @@ void showBarChart() {
   float offset=(width/7)+20;
   float wid=spacing/2;
 
+  int maxGoal=0;
+  for (int i=0; i<goals.length; i++) {
+    if (goals[i]>maxGoal) {
+      maxGoal=goals[i];
+    }
+  }
 
+  int maxVal=max(maxGoal, maxInDay);
+
+  strokeWeight(2);
   fill(darkb);
-  stroke(fore);
-  strokeWeight(4);
+  stroke(accent);
 
-
+  beginShape();
   for (int i=0; i<sets.length; i++) {
     int sum=0;
     for (int j=0; j<sets[i].size(); j++) {
       sum+=sets[i].get(j).amount;
     }
-    //line((spacing*(i+0.5))+offset,410,(spacing*(i+0.5))+offset,410-(200*sum/maxInDay));
-    rect(spacing*(i+0.5)+offset-wid/2, 410, wid, -(200*sum/maxInDay));
+
+    rect(spacing*(i+0.5)+offset-wid/2, 410, wid, -(200*sum/maxVal));
+    vertex(spacing*(i+0.5)+offset, 410-(200*goals[i]/maxVal));
   }
+  noFill();
+  stroke(fore);
+  strokeWeight(3);
+  
+  endShape();
+  
+  
+  
+  
+  //----------------------- Axis
+  
 
   stroke(accent);
   line(width/7, 190, width/7, 430);
