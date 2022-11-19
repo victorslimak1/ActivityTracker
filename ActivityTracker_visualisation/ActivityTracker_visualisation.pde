@@ -129,20 +129,33 @@ void showBarChart() {
   noFill();
   stroke(fore);
   strokeWeight(3);
-  
-  endShape();
-  
-  
-  
-  
-  //----------------------- Axis
-  
 
+  endShape();
+
+
+
+
+  //----------------------- Axis
+
+
+  //Y-axis
   stroke(accent);
   line(width/7, 190, width/7, 430);
   line(width/7, 190, width/7-5, 195);
   line(width/7, 190, width/7+5, 195);
 
+
+  line(width/7-5, 210, width/7+5, 210);
+  line(width/7-5, 310, width/7+5, 310);
+  
+  textAlign(RIGHT, CENTER);
+  fill(accent);
+  text(maxVal, width/7-15, 210);
+  text(maxVal/2, width/7-15, 310);
+
+
+
+  //X-axis
   line(width/7-20, 410, 6*width/7+20, 410);
   line(6*width/7+20, 410, 6*width/7+15, 405);
   line(6*width/7+20, 410, 6*width/7+15, 415);
