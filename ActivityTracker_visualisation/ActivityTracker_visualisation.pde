@@ -94,9 +94,39 @@ void draw() {
   background(back);
   showTotals();
   showBarChart();
+  showTimeCircle();
+
 
   //exit();
 }
+
+void showTimeCircle(){
+  translate(2*width/7,600);
+  pushMatrix();
+  textAlign(CENTER,CENTER);
+  text(0,0,-80);
+  text(6,80,0);
+  text(12,0,80);
+  text(18,-80,0);
+  
+  int r=30;
+  
+  for(int i=0;i<sets.length;i++){
+    for(int j=0;j<sets[i].size();j++){
+      int time=(sets[i].get(j).h)*60+(sets[i].get(j).mi);
+      float angle=map(time,0,1440,0,TWO_PI)-HALF_PI;
+            
+      fill(lightb,50);
+      noStroke();
+      ellipse((r+i)*cos(angle),(r+i)*sin(angle),10,10);
+      
+    }
+  }
+  
+  fill(fore);
+  text("Time",0,0);
+  popMatrix();
+}  
 
 void showBarChart() {
   float spacing=((5*width/7)-40)/(sets.length);
