@@ -95,38 +95,71 @@ void draw() {
   showTotals();
   showBarChart();
   showTimeCircle();
+  showDayCircle();
 
 
   //exit();
 }
 
-void showTimeCircle(){
-  translate(2*width/7,600);
+void showDayCircle() {
   pushMatrix();
-  textAlign(CENTER,CENTER);
-  text(0,0,-80);
-  text(6,80,0);
-  text(12,0,80);
-  text(18,-80,0);
-  
+  translate(5*width/7, 600);  
+  fill(accent);
+  textAlign(CENTER, CENTER);
+  text("Mon", 80*cos(0.5*TWO_PI/7-HALF_PI), 80*sin(0.5*TWO_PI/7-HALF_PI));
+  text("Tue", 80*cos(1.5*TWO_PI/7-HALF_PI), 80*sin(1.5*TWO_PI/7-HALF_PI));
+  text("Wed", 80*cos(2.5*TWO_PI/7-HALF_PI), 80*sin(2.5*TWO_PI/7-HALF_PI));
+  text("Thr", 80*cos(3.5*TWO_PI/7-HALF_PI), 80*sin(3.5*TWO_PI/7-HALF_PI));
+  text("Fri", 80*cos(4.5*TWO_PI/7-HALF_PI), 80*sin(4.5*TWO_PI/7-HALF_PI));
+  text("Sat", 80*cos(5.5*TWO_PI/7-HALF_PI), 80*sin(5.5*TWO_PI/7-HALF_PI));
+  text("Sun", 80*cos(6.5*TWO_PI/7-HALF_PI), 80*sin(6.5*TWO_PI/7-HALF_PI));
+
+
   int r=30;
-  
-  for(int i=0;i<sets.length;i++){
-    for(int j=0;j<sets[i].size();j++){
+
+  for (int i=0; i<sets.length; i++) {
+    for (int j=0; j<sets[i].size(); j++) {
       int time=(sets[i].get(j).h)*60+(sets[i].get(j).mi);
-      float angle=map(time,0,1440,0,TWO_PI)-HALF_PI;
-            
-      fill(lightb,50);
+      float angle=map(time, 0, 1440, 0, TWO_PI)-HALF_PI;
+
+      fill(lightb, 50);
       noStroke();
-      ellipse((r+i)*cos(angle),(r+i)*sin(angle),10,10);
-      
+      ellipse((r+i)*cos(angle), (r+i)*sin(angle), 10, 10);
     }
   }
-  
+
   fill(fore);
-  text("Time",0,0);
+  text("Day", 0, 0);
   popMatrix();
-}  
+}
+
+void showTimeCircle() {
+  pushMatrix();
+  translate(2*width/7, 600);
+  fill(accent);
+  textAlign(CENTER, CENTER);
+  text(0, 0, -80);
+  text(6, 80, 0);
+  text(12, 0, 80);
+  text(18, -80, 0);
+
+  int r=30;
+
+  for (int i=0; i<sets.length; i++) {
+    for (int j=0; j<sets[i].size(); j++) {
+      int time=(sets[i].get(j).h)*60+(sets[i].get(j).mi);
+      float angle=map(time, 0, 1440, 0, TWO_PI)-HALF_PI;
+
+      fill(lightb, 50);
+      noStroke();
+      ellipse((r+i)*cos(angle), (r+i)*sin(angle), 10, 10);
+    }
+  }
+
+  fill(fore);
+  text("Time", 0, 0);
+  popMatrix();
+}
 
 void showBarChart() {
   float spacing=((5*width/7)-40)/(sets.length);
@@ -177,7 +210,7 @@ void showBarChart() {
 
   line(width/7-5, 210, width/7+5, 210);
   line(width/7-5, 310, width/7+5, 310);
-  
+
   textAlign(RIGHT, CENTER);
   fill(accent);
   text(maxVal, width/7-15, 210);
