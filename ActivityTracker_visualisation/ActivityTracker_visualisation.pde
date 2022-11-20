@@ -99,14 +99,28 @@ void draw() {
   showBarChart();
   showTimeCircle();
   showDayCircle();
-
+  showTimeTable();
 
   //exit();
 }
 
+void showTimeTable(){
+  pushMatrix();
+  translate(width/7,750);
+  float wid=5*width/7;
+  fill(accent);
+  textAlign(CENTER,CENTER);
+  text(0,0,0);
+  text(6,wid/4,0);
+  text(12,wid/2,0);
+  text(18,3*wid/4,0);
+  text(24,wid,0);
+  popMatrix();
+}
+
 void showDayCircle() {
   pushMatrix();
-  translate(5*width/7, 600);
+  translate(5*width/7, 550);
   fill(accent);
   textAlign(CENTER, CENTER);
   text("Mon", 80*cos(0.5*TWO_PI/7-HALF_PI), 80*sin(0.5*TWO_PI/7-HALF_PI));
@@ -169,7 +183,7 @@ int getDay(int[] date) {
 
 void showTimeCircle() {
   pushMatrix();
-  translate(2*width/7, 600);
+  translate(2*width/7, 550);
   fill(accent);
   textAlign(CENTER, CENTER);
   text(0, 0, -80);
