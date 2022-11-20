@@ -115,6 +115,30 @@ void showTimeTable(){
   text(12,wid/2,0);
   text(18,3*wid/4,0);
   text(24,wid,0);
+  
+  for (int i=0; i<sets.length; i++) {
+    int sum=0;
+    for (int j=0; j<sets[i].size(); j++) {
+      int time=(sets[i].get(j).h)*60+(sets[i].get(j).mi);
+      float dis=map(time, 0, 1440, 0, wid);
+
+      sum+=sets[i].get(j).amount;
+      
+      if(sum<=goals[i]){
+        fill(lightb, 70);
+      }else{
+        fill(darkb, 40);
+      }
+      noStroke();
+      ellipse(dis, 20*(i+2), 10, 10);
+    }
+    fill(fore);
+    textSize(23);
+    text(dates[i][0]+"/"+dates[i][1],-60,20*(i+2));
+  }
+  
+  
+  
   popMatrix();
 }
 
