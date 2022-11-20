@@ -15,7 +15,7 @@ int[] goals;
 ArrayList<Set>[] sets;
 
 
-int[] monthValues={1,4,4,0,2,5,0,3,6,1,4,6};//Values used for calcualtin weekDay
+int[] monthValues={1, 4, 4, 0, 2, 5, 0, 3, 6, 1, 4, 6};//Values used for calcualting weekDay
 
 
 
@@ -26,8 +26,11 @@ int maxInDay;
 int maxInSet;
 
 
+boolean pdf=false;
+
 void setup() {
-  //size(700, 900, PDF, "ActivityTracker.pdf");
+  //size(700, 1200, PDF, "ActivityTracker.pdf");
+  //change bool above as well
   size(700, 900);
 
 
@@ -101,21 +104,23 @@ void draw() {
   showDayCircle();
   showTimeTable();
 
-  //exit();
+  if (pdf) {
+    exit();
+  }
 }
 
-void showTimeTable(){
+void showTimeTable() {
   pushMatrix();
-  translate(width/7,750);
+  translate(width/7, 750);
   float wid=5*width/7;
   fill(accent);
-  textAlign(CENTER,CENTER);
-  text(0,0,0);
-  text(6,wid/4,0);
-  text(12,wid/2,0);
-  text(18,3*wid/4,0);
-  text(24,wid,0);
-  
+  textAlign(CENTER, CENTER);
+  text(0, 0, 0);
+  text(6, wid/4, 0);
+  text(12, wid/2, 0);
+  text(18, 3*wid/4, 0);
+  text(24, wid, 0);
+
   for (int i=0; i<sets.length; i++) {
     int sum=0;
     for (int j=0; j<sets[i].size(); j++) {
@@ -123,22 +128,22 @@ void showTimeTable(){
       float dis=map(time, 0, 1440, 0, wid);
 
       sum+=sets[i].get(j).amount;
-      
-      if(sum<=goals[i]){
+
+      if (sum<=goals[i]) {
         fill(lightb, 70);
-      }else{
+      } else {
         fill(darkb, 40);
       }
       noStroke();
-      ellipse(dis, 20*(i+2), 10, 10);
+      ellipse(dis, 20*(i+2), 10+(sets[i].get(j).amount*0.8), 10+(sets[i].get(j).amount*0.8));
     }
     fill(fore);
     textSize(23);
-    text(dates[i][0]+"/"+dates[i][1],-60,20*(i+2));
+    text(dates[i][0]+"/"+dates[i][1], -60, 20*(i+2));
   }
-  
-  
-  
+
+
+
   popMatrix();
 }
 
@@ -160,7 +165,7 @@ void showDayCircle() {
 
   for (int i=0; i<sets.length; i++) {
     int day=getDay(dates[i]);
-    float angle=map(day, 0, 6, (5.5*TWO_PI/7),(11.5*TWO_PI/7));
+    float angle=map(day, 0, 6, (5.5*TWO_PI/7), (11.5*TWO_PI/7));
     int sum=0;
 
     for (int j=0; j<sets[i].size(); j++) {
@@ -182,22 +187,22 @@ int getDay(int[] date) {
   int day=date[0];
   int month=date[1];
   int year=date[2];
-    
+
   int sum=0;
-  
+
   //Instructions taken from here:
   //https://beginnersbook.com/2013/04/calculating-day-given-date/
-  
-  sum=(year/4)-500;//Dividing the last 2 digits by 4 and removing the remainder. -500 removes the first 2 digits (will work up to year 2100). 
+
+  sum=(year/4)-500;//Dividing the last 2 digits by 4 and removing the remainder. -500 removes the first 2 digits (will work up to year 2100).
   sum+=day;
   sum+=monthValues[month-1];
-  if(month==1||month==2){
-    if(year%4==0){
+  if (month==1||month==2) {
+    if (year%4==0) {
       sum--;//Removing 1 if January or Febuary of leap year.
     }
   }
   sum+=6;//Adding 6 for the 2000s
-  
+
   sum+=year-2000;//Adding last 2 digits of year
 
   int weekDay=sum%7;
@@ -301,10 +306,10 @@ void showTotals() {
   fill(accent);
   textAlign(CENTER, CENTER);
   textSize(20);
-  text("Average per Day: ", width/5, 80);
-  text("Total #: ", 2*width/5, 80);
-  text("Max in 1 Day: ", 3*width/5, 80);
-  text("Max in 1 Set: ", 4*width/5, 80);
+  text("Average per Day", width/5, 80);
+  text("Total #", 2*width/5, 80);
+  text("Max in 1 Day", 3*width/5, 80);
+  text("Max in 1 Set", 4*width/5, 80);
 
   textSize(30);
   text(avgPerAllDay, width/5, 120);
