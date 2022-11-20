@@ -15,6 +15,9 @@ int[] goals;
 ArrayList<Set>[] sets;
 
 
+int[] monthValues={1,4,4,0,2,5,0,3,6,1,4,6};//Values used for calcualtin weekDay
+
+
 
 float avgPerRecDay;
 float avgPerAllDay;
@@ -103,7 +106,7 @@ void draw() {
 
 void showDayCircle() {
   pushMatrix();
-  translate(5*width/7, 600);  
+  translate(5*width/7, 600);
   fill(accent);
   textAlign(CENTER, CENTER);
   text("Mon", 80*cos(0.5*TWO_PI/7-HALF_PI), 80*sin(0.5*TWO_PI/7-HALF_PI));
@@ -115,22 +118,53 @@ void showDayCircle() {
   text("Sun", 80*cos(6.5*TWO_PI/7-HALF_PI), 80*sin(6.5*TWO_PI/7-HALF_PI));
 
 
-  int r=30;
+  int r=40;
 
   for (int i=0; i<sets.length; i++) {
-    for (int j=0; j<sets[i].size(); j++) {
-      int time=(sets[i].get(j).h)*60+(sets[i].get(j).mi);
-      float angle=map(time, 0, 1440, 0, TWO_PI)-HALF_PI;
+    int day=getDay(dates[i]);
+    float angle=map(day, 0, 6, (5.5*TWO_PI/7),(11.5*TWO_PI/7));
+    int sum=0;
 
-      fill(lightb, 50);
-      noStroke();
-      ellipse((r+i)*cos(angle), (r+i)*sin(angle), 10, 10);
+    for (int j=0; j<sets[i].size(); j++) {
+      sum+=sets[i].get(j).amount;
     }
+
+    fill(lightb, sum*0.1);
+    noStroke();
+    ellipse((r+i)*cos(angle-HALF_PI), (r+i)*sin(angle-HALF_PI), 10, 10);
   }
 
   fill(fore);
   text("Day", 0, 0);
   popMatrix();
+}
+
+
+int getDay(int[] date) {
+  int day=date[0];
+  int month=date[1];
+  int year=date[2];
+    
+  int sum=0;
+  
+  //Instructions taken from here:
+  //https://beginnersbook.com/2013/04/calculating-day-given-date/
+  
+  sum=(year/4)-500;//Dividing the last 2 digits by 4 and removing the remainder. -500 removes the first 2 digits (will work up to year 2100). 
+  sum+=day;
+  sum+=monthValues[month-1];
+  if(month==1||month==2){
+    if(year%4==0){
+      sum--;//Removing 1 if January or Febuary of leap year.
+    }
+  }
+  sum+=6;//Adding 6 for the 2000s
+  
+  sum+=year-2000;//Adding last 2 digits of year
+
+  int weekDay=sum%7;
+
+  return weekDay;
 }
 
 void showTimeCircle() {
@@ -150,7 +184,7 @@ void showTimeCircle() {
       int time=(sets[i].get(j).h)*60+(sets[i].get(j).mi);
       float angle=map(time, 0, 1440, 0, TWO_PI)-HALF_PI;
 
-      fill(lightb, 50);
+      fill(lightb, 10);
       noStroke();
       ellipse((r+i)*cos(angle), (r+i)*sin(angle), 10, 10);
     }
