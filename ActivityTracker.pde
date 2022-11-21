@@ -138,7 +138,9 @@ void draw() {
 void submit() {
   //Reading data
   lines = loadStrings("trackingSheet.txt");
-
+  data.clear();
+  
+  
   for (int i = 0; i < lines.length; i++) {
     IntList tempList=new IntList();
     int[] tempArr=int(split(lines[i], ","));
