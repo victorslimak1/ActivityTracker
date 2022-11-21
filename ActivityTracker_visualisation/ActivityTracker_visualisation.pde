@@ -253,17 +253,24 @@ void showBarChart() {
   int maxVal=max(maxGoal, maxInDay);
 
   strokeWeight(2);
-  fill(darkb);
   stroke(accent);
 
   beginShape();
   for (int i=0; i<sets.length; i++) {
     int sum=0;
+    int maxSet=0;
+    int amount=0;
     for (int j=0; j<sets[i].size(); j++) {
-      sum+=sets[i].get(j).amount;
+      amount=sets[i].get(j).amount;
+      sum+=amount;
+      if(amount>maxSet){
+        maxSet=amount;
+      }
     }
-
+    fill(darkb);
     rect(spacing*(i+0.5)+offset-wid/2, 410, wid, -(200*sum/maxVal));
+    fill(lightb);
+    rect(spacing*(i+0.5)+offset-wid/2, 410, wid, -(200*maxSet/maxVal));
     vertex(spacing*(i+0.5)+offset, 410-(200*goals[i]/maxVal));
   }
   noFill();
