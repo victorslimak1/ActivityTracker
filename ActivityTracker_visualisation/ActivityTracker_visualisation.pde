@@ -98,6 +98,7 @@ void getTotals() {
 
 void draw() {
   background(back);
+  showGoals();
   showTotals();
   showBarChart();
   showTimeCircle();
@@ -107,6 +108,13 @@ void draw() {
   if (pdf) {
     exit();
   }
+}
+
+void showGoals(){
+  text("Goals by Summer:",width/5,40);
+  text("200 per Day",2*width/5,40);
+  text("20 per Set",3*width/5,40);
+  text("35 in 1 Set",4*width/5,40);
 }
 
 void showTimeTable() {
@@ -132,7 +140,7 @@ void showTimeTable() {
       if (sum<=goals[i]) {
         fill(lightb, 70);
       } else {
-        fill(darkb, 40);
+        fill(darkb, 40); 
       }
       noStroke();
       ellipse(dis, 20*(i+2), 10+(sets[i].get(j).amount*0.8), 10+(sets[i].get(j).amount*0.8));
@@ -263,7 +271,7 @@ void showBarChart() {
     for (int j=0; j<sets[i].size(); j++) {
       amount=sets[i].get(j).amount;
       sum+=amount;
-      if(amount>maxSet){
+      if (amount>maxSet) {
         maxSet=amount;
       }
     }
