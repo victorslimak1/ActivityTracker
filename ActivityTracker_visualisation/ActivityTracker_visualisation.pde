@@ -31,7 +31,7 @@ boolean pdf=false;
 void setup() {
   //size(700, 1200, PDF, "ActivityTracker.pdf");
   //change bool above as well
-  size(700, 900);
+  size(700, 1100);
 
 
   lines = loadStrings("../trackingSheet.txt");
