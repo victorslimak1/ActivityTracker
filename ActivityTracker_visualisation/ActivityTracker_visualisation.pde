@@ -33,7 +33,7 @@ void setup() {
   //change bool above as well
   size(700, 1100);
 
- 
+
   lines = loadStrings("../trackingSheet.txt");
 
 
@@ -104,20 +104,16 @@ void draw() {
   showTimeCircle();
   showDayCircle();
   showTimeTable();
-  mouseOver();
 
   if (pdf) {
     exit();
   }
 }
 
-void mouseOver(){
-  if(mouseX>width/7&&mouseX<6*width/7){
-    if(mouseY>190&&mouseY<430){
-      stroke(accent);
-      rect(mouseX,mouseY,90,-40); 
-    }
-  }
+void mouseOver(int dayIndex) {
+  fill(back);
+  stroke(accent);
+  rect(mouseX, mouseY, 90, -40);
 }
 
 void showGoals() {
@@ -290,6 +286,14 @@ void showBarChart() {
     fill(lightb);
     rect(spacing*(i+0.5)+offset-wid/2, 410, wid, -(200*maxSet/maxVal));
     vertex(spacing*(i+0.5)+offset, 410-(200*goals[i]/maxVal));
+    
+    if(mouseX>spacing*(i+0.5)+offset-wid/2&&mouseX<spacing*(i+0.5)+offset+wid/2){
+      if(mouseY>410-(200*sum/maxVal)&&mouseY<400){
+        mouseOver(i);
+      }
+    }
+    
+    
   }
   noFill();
   stroke(fore);
