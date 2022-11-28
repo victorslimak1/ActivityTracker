@@ -33,7 +33,7 @@ void setup() {
   //change bool above as well
   size(700, 1100);
 
-
+ 
   lines = loadStrings("../trackingSheet.txt");
 
 
@@ -104,9 +104,19 @@ void draw() {
   showTimeCircle();
   showDayCircle();
   showTimeTable();
+  mouseOver();
 
   if (pdf) {
     exit();
+  }
+}
+
+void mouseOver(){
+  if(mouseX>width/7&&mouseX<6*width/7){
+    if(mouseY>190&&mouseY<430){
+      stroke(accent);
+      rect(mouseX,mouseY,90,-40); 
+    }
   }
 }
 
@@ -182,7 +192,7 @@ void showDayCircle() {
 
     fill(lightb, sum*0.1);
     noStroke();
-    ellipse((r+i)*cos(angle-HALF_PI), (r+i)*sin(angle-HALF_PI), 10, 10);
+    ellipse((r+(i*0.1))*cos(angle-HALF_PI), (r+(i*0.1))*sin(angle-HALF_PI), 10, 10);
   }
 
   fill(fore);
