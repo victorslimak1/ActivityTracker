@@ -103,12 +103,12 @@ void draw() {
   showTimeCircle();
   showDayCircle();
   showTimeTable();
-  mouseOver();
 
   if (pdf) {
     exit();
   }
 }
+
 
 void mouseOver() {
   if (mouseX>width/7&&mouseX<6*width/7) {
@@ -154,7 +154,7 @@ void mouseOver() {
     }
   }
   
-}
+
 
 void showGoals() {
   textAlign(CENTER,CENTER);
@@ -328,6 +328,14 @@ void showBarChart() {
     fill(lightb);
     rect(spacing*(i+0.5)+offset-wid/2, 410, wid, -(200*maxSet/maxVal));
     vertex(spacing*(i+0.5)+offset, 410-(200*goals[i]/maxVal));
+    
+    if(mouseX>spacing*(i+0.5)+offset-wid/2&&mouseX<spacing*(i+0.5)+offset+wid/2){
+      if(mouseY>410-(200*sum/maxVal)&&mouseY<400){
+        mouseOver(i);
+      }
+    }
+    
+    
   }
   noFill();
   stroke(fore);
