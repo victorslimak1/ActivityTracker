@@ -18,7 +18,6 @@ ArrayList<Set>[] sets;
 int[] monthValues={1, 4, 4, 0, 2, 5, 0, 3, 6, 1, 4, 6};//Values used for calcualting weekDay
 
 
-
 float avgPerRecDay;
 float avgPerAllDay;
 int total;
@@ -143,15 +142,23 @@ void mouseOver() {
         if (mouseX>x1&&mouseX<x2) {
           if (mouseY>y1&&mouseY<y2) {
             stroke(accent);
-            rect(mouseX, mouseY, 90, -40);
+            rect(mouseX, mouseY, 90, -60);
+            fill(accent);
+            textAlign(LEFT,CENTER);
+            text(dates[i][0]+"/"+dates[i][1],mouseX+5,mouseY-50);
+            text("Total: "+sum,mouseX+5,mouseY-30);
+            text("Goal: "+goals[i],mouseX+5,mouseY-10);
           }
         }
       }
     }
   }
+  
 }
 
 void showGoals() {
+  textAlign(CENTER,CENTER);
+  fill(fore);
   text("Goals by Summer:", width/5, 40);
   text("200 per Day", 2*width/5, 40);
   text("20 per Set", 3*width/5, 40);
