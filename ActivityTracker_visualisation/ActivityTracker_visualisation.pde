@@ -1,4 +1,4 @@
-import processing.pdf.*; //<>//
+import processing.pdf.*; //<>// //<>// //<>//
 
 
 String[] lines;
@@ -16,7 +16,6 @@ ArrayList<Set>[] sets;
 
 
 int[] monthValues={1, 4, 4, 0, 2, 5, 0, 3, 6, 1, 4, 6};//Values used for calcualting weekDay
-
 
 
 float avgPerRecDay;
@@ -110,13 +109,56 @@ void draw() {
   }
 }
 
-void mouseOver(int dayIndex) {
-  fill(back);
-  stroke(accent);
-  rect(mouseX, mouseY, 90, -40);
+
+void mouseOver() {
+  if (mouseX>width/7&&mouseX<6*width/7) {
+    if (mouseY>190&&mouseY<430) {
+      float spacing=((5*width/7)-40)/(sets.length);
+      float offset=(width/7)+20;
+      float wid=spacing/2;
+
+      float x1, y1, x2, y2;
+
+      int maxGoal=0;
+      for (int i=0; i<goals.length; i++) {
+        if (goals[i]>maxGoal) {
+          maxGoal=goals[i];
+        }
+      }
+
+      int maxVal=max(maxGoal, maxInDay);
+
+
+      for (int i=0; i<sets.length; i++) {
+        int sum=0;
+        for (int j=0; j<sets[i].size(); j++) {
+          sum+=sets[i].get(j).amount;
+        }
+        x1=spacing*(i+0.5)+offset-wid/2;
+        y1=410-(200*sum/maxVal);
+        x2=spacing*(i+0.5)+offset+wid/2;
+        y2=410;
+
+        if (mouseX>x1&&mouseX<x2) {
+          if (mouseY>y1&&mouseY<y2) {
+            stroke(accent);
+            rect(mouseX, mouseY, 90, -60);
+            fill(accent);
+            textAlign(LEFT,CENTER);
+            text(dates[i][0]+"/"+dates[i][1],mouseX+5,mouseY-50);
+            text("Total: "+sum,mouseX+5,mouseY-30);
+            text("Goal: "+goals[i],mouseX+5,mouseY-10);
+          }
+        }
+      }
+    }
+  }
 }
 
+
 void showGoals() {
+  textAlign(CENTER,CENTER);
+  fill(fore);
   text("Goals by Summer:", width/5, 40);
   text("200 per Day", 2*width/5, 40);
   text("20 per Set", 3*width/5, 40);
@@ -289,7 +331,7 @@ void showBarChart() {
     
     if(mouseX>spacing*(i+0.5)+offset-wid/2&&mouseX<spacing*(i+0.5)+offset+wid/2){
       if(mouseY>410-(200*sum/maxVal)&&mouseY<400){
-        mouseOver(i);
+        //mouseOver(i);
       }
     }
     
