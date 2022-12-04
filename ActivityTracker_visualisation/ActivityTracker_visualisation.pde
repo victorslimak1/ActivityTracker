@@ -1,4 +1,4 @@
-import processing.pdf.*; //<>// //<>// //<>//
+import processing.pdf.*; //<>// //<>//
 
 
 String[] lines;
@@ -16,6 +16,7 @@ ArrayList<Set>[] sets;
 
 
 int[] monthValues={1, 4, 4, 0, 2, 5, 0, 3, 6, 1, 4, 6};//Values used for calcualting weekDay
+
 
 
 float avgPerRecDay;
@@ -103,12 +104,13 @@ void draw() {
   showTimeCircle();
   showDayCircle();
   showTimeTable();
+  
+  mouseOver();
 
   if (pdf) {
     exit();
   }
 }
-
 
 void mouseOver() {
   if (mouseX>width/7&&mouseX<6*width/7) {
@@ -144,10 +146,10 @@ void mouseOver() {
             stroke(accent);
             rect(mouseX, mouseY, 90, -60);
             fill(accent);
-            textAlign(LEFT,CENTER);
-            text(dates[i][0]+"/"+dates[i][1],mouseX+5,mouseY-50);
-            text("Total: "+sum,mouseX+5,mouseY-30);
-            text("Goal: "+goals[i],mouseX+5,mouseY-10);
+            textAlign(LEFT, CENTER);
+            text(dates[i][0]+"/"+dates[i][1], mouseX+5, mouseY-50);
+            text("Total: "+sum, mouseX+5, mouseY-30);
+            text("Goal: "+goals[i], mouseX+5, mouseY-10);
           }
         }
       }
@@ -155,236 +157,229 @@ void mouseOver() {
   }
 }
 
-
-void showGoals() {
-  textAlign(CENTER,CENTER);
-  fill(fore);
-  text("Goals by Summer:", width/5, 40);
-  text("200 per Day", 2*width/5, 40);
-  text("20 per Set", 3*width/5, 40);
-  text("35 in 1 Set", 4*width/5, 40);
-}
-
-void showTimeTable() {
-  pushMatrix();
-  translate(width/7, 750);
-  float wid=5*width/7;
-  fill(accent);
-  textAlign(CENTER, CENTER);
-  text(0, 0, 0);
-  text(6, wid/4, 0);
-  text(12, wid/2, 0);
-  text(18, 3*wid/4, 0);
-  text(24, wid, 0);
-
-  for (int i=0; i<sets.length; i++) {
-    int sum=0;
-    for (int j=0; j<sets[i].size(); j++) {
-      int time=(sets[i].get(j).h)*60+(sets[i].get(j).mi);
-      float dis=map(time, 0, 1440, 0, wid);
-
-      sum+=sets[i].get(j).amount;
-
-      if (sum<=goals[i]) {
-        fill(lightb, 70);
-      } else {
-        fill(darkb, 40);
-      }
-      noStroke();
-      ellipse(dis, 20*(i+2), 10+(sets[i].get(j).amount*0.8), 10+(sets[i].get(j).amount*0.8));
-    }
+  void showGoals() {
+    textAlign(CENTER,CENTER);
     fill(fore);
-    textSize(23);
-    text(dates[i][0]+"/"+dates[i][1], -60, 20*(i+2));
+    text("Goals by Summer:", width/5, 40);
+    text("200 per Day", 2*width/5, 40);
+    text("20 per Set", 3*width/5, 40);
+    text("35 in 1 Set", 4*width/5, 40);
   }
 
+  void showTimeTable() {
+    pushMatrix();
+    translate(width/7, 750);
+    float wid=5*width/7;
+    fill(accent);
+    textAlign(CENTER, CENTER);
+    text(0, 0, 0);
+    text(6, wid/4, 0);
+    text(12, wid/2, 0);
+    text(18, 3*wid/4, 0);
+    text(24, wid, 0);
 
+    for (int i=0; i<sets.length; i++) {
+      int sum=0;
+      for (int j=0; j<sets[i].size(); j++) {
+        int time=(sets[i].get(j).h)*60+(sets[i].get(j).mi);
+        float dis=map(time, 0, 1440, 0, wid);
 
-  popMatrix();
-}
+        sum+=sets[i].get(j).amount;
 
-void showDayCircle() {
-  pushMatrix();
-  translate(5*width/7, 550);
-  fill(accent);
-  textAlign(CENTER, CENTER);
-  text("Mon", 80*cos(0.5*TWO_PI/7-HALF_PI), 80*sin(0.5*TWO_PI/7-HALF_PI));
-  text("Tue", 80*cos(1.5*TWO_PI/7-HALF_PI), 80*sin(1.5*TWO_PI/7-HALF_PI));
-  text("Wed", 80*cos(2.5*TWO_PI/7-HALF_PI), 80*sin(2.5*TWO_PI/7-HALF_PI));
-  text("Thr", 80*cos(3.5*TWO_PI/7-HALF_PI), 80*sin(3.5*TWO_PI/7-HALF_PI));
-  text("Fri", 80*cos(4.5*TWO_PI/7-HALF_PI), 80*sin(4.5*TWO_PI/7-HALF_PI));
-  text("Sat", 80*cos(5.5*TWO_PI/7-HALF_PI), 80*sin(5.5*TWO_PI/7-HALF_PI));
-  text("Sun", 80*cos(6.5*TWO_PI/7-HALF_PI), 80*sin(6.5*TWO_PI/7-HALF_PI));
-
-
-  int r=40;
-
-  for (int i=0; i<sets.length; i++) {
-    int day=getDay(dates[i]);
-    float angle=map(day, 0, 6, (5.5*TWO_PI/7), (11.5*TWO_PI/7));
-    int sum=0;
-
-    for (int j=0; j<sets[i].size(); j++) {
-      sum+=sets[i].get(j).amount;
+        if (sum<=goals[i]) {
+          fill(lightb, 70);
+        } else {
+          fill(darkb, 40);
+        }
+        noStroke();
+        ellipse(dis, 20*(i+2), 10+(sets[i].get(j).amount*0.8), 10+(sets[i].get(j).amount*0.8));
+      }
+      fill(fore);
+      textSize(23);
+      text(dates[i][0]+"/"+dates[i][1], -60, 20*(i+2));
     }
 
-    fill(lightb, sum*0.1);
-    noStroke();
-    ellipse((r+(i*0.1))*cos(angle-HALF_PI), (r+(i*0.1))*sin(angle-HALF_PI), 10, 10);
+
+
+    popMatrix();
   }
 
-  fill(fore);
-  text("Day", 0, 0);
-  popMatrix();
-}
+  void showDayCircle() {
+    pushMatrix();
+    translate(5*width/7, 550);
+    fill(accent);
+    textAlign(CENTER, CENTER);
+    text("Mon", 80*cos(0.5*TWO_PI/7-HALF_PI), 80*sin(0.5*TWO_PI/7-HALF_PI));
+    text("Tue", 80*cos(1.5*TWO_PI/7-HALF_PI), 80*sin(1.5*TWO_PI/7-HALF_PI));
+    text("Wed", 80*cos(2.5*TWO_PI/7-HALF_PI), 80*sin(2.5*TWO_PI/7-HALF_PI));
+    text("Thr", 80*cos(3.5*TWO_PI/7-HALF_PI), 80*sin(3.5*TWO_PI/7-HALF_PI));
+    text("Fri", 80*cos(4.5*TWO_PI/7-HALF_PI), 80*sin(4.5*TWO_PI/7-HALF_PI));
+    text("Sat", 80*cos(5.5*TWO_PI/7-HALF_PI), 80*sin(5.5*TWO_PI/7-HALF_PI));
+    text("Sun", 80*cos(6.5*TWO_PI/7-HALF_PI), 80*sin(6.5*TWO_PI/7-HALF_PI));
 
 
-int getDay(int[] date) {
-  int day=date[0];
-  int month=date[1];
-  int year=date[2];
+    int r=40;
 
-  int sum=0;
+    for (int i=0; i<sets.length; i++) {
+      int day=getDay(dates[i]);
+      float angle=map(day, 0, 6, (5.5*TWO_PI/7), (11.5*TWO_PI/7));
+      int sum=0;
 
-  //Instructions taken from here:
-  //https://beginnersbook.com/2013/04/calculating-day-given-date/
+      for (int j=0; j<sets[i].size(); j++) {
+        sum+=sets[i].get(j).amount;
+      }
 
-  sum=(year/4)-500;//Dividing the last 2 digits by 4 and removing the remainder. -500 removes the first 2 digits (will work up to year 2100).
-  sum+=day;
-  sum+=monthValues[month-1];
-  if (month==1||month==2) {
-    if (year%4==0) {
-      sum--;//Removing 1 if January or Febuary of leap year.
-    }
-  }
-  sum+=6;//Adding 6 for the 2000s
-
-  sum+=year-2000;//Adding last 2 digits of year
-
-  int weekDay=sum%7;
-
-  return weekDay;
-}
-
-void showTimeCircle() {
-  pushMatrix();
-  translate(2*width/7, 550);
-  fill(accent);
-  textAlign(CENTER, CENTER);
-  text(0, 0, -80);
-  text(6, 80, 0);
-  text(12, 0, 80);
-  text(18, -80, 0);
-
-  int r=30;
-
-  for (int i=0; i<sets.length; i++) {
-    for (int j=0; j<sets[i].size(); j++) {
-      int time=(sets[i].get(j).h)*60+(sets[i].get(j).mi);
-      float angle=map(time, 0, 1440, 0, TWO_PI)-HALF_PI;
-
-      fill(lightb, 10);
+      fill(lightb, sum*0.1);
       noStroke();
-      ellipse((r+i)*cos(angle), (r+i)*sin(angle), 10, 10);
+      ellipse((r+(i*0.1))*cos(angle-HALF_PI), (r+(i*0.1))*sin(angle-HALF_PI), 10, 10);
     }
+
+    fill(fore);
+    text("Day", 0, 0);
+    popMatrix();
   }
 
-  fill(fore);
-  text("Time", 0, 0);
-  popMatrix();
-}
 
-void showBarChart() {
-  float spacing=((5*width/7)-40)/(sets.length);
-  float offset=(width/7)+20;
-  float wid=spacing/2;
+  int getDay(int[] date) {
+    int day=date[0];
+    int month=date[1];
+    int year=date[2];
 
-  int maxGoal=0;
-  for (int i=0; i<goals.length; i++) {
-    if (goals[i]>maxGoal) {
-      maxGoal=goals[i];
-    }
-  }
-
-  int maxVal=max(maxGoal, maxInDay);
-
-  strokeWeight(2);
-  stroke(accent);
-
-  beginShape();
-  for (int i=0; i<sets.length; i++) {
     int sum=0;
-    int maxSet=0;
-    int amount=0;
-    for (int j=0; j<sets[i].size(); j++) {
-      amount=sets[i].get(j).amount;
-      sum+=amount;
-      if (amount>maxSet) {
-        maxSet=amount;
+
+    //Instructions taken from here:
+    //https://beginnersbook.com/2013/04/calculating-day-given-date/
+
+    sum=(year/4)-500;//Dividing the last 2 digits by 4 and removing the remainder. -500 removes the first 2 digits (will work up to year 2100).
+    sum+=day;
+    sum+=monthValues[month-1];
+    if (month==1||month==2) {
+      if (year%4==0) {
+        sum--;//Removing 1 if January or Febuary of leap year.
       }
     }
-    fill(darkb);
-    rect(spacing*(i+0.5)+offset-wid/2, 410, wid, -(200*sum/maxVal));
-    fill(lightb);
-    rect(spacing*(i+0.5)+offset-wid/2, 410, wid, -(200*maxSet/maxVal));
-    vertex(spacing*(i+0.5)+offset, 410-(200*goals[i]/maxVal));
-    
-    if(mouseX>spacing*(i+0.5)+offset-wid/2&&mouseX<spacing*(i+0.5)+offset+wid/2){
-      if(mouseY>410-(200*sum/maxVal)&&mouseY<400){
-        //mouseOver(i);
-      }
-    }
-    
-    
+    sum+=6;//Adding 6 for the 2000s
+
+    sum+=year-2000;//Adding last 2 digits of year
+
+    int weekDay=sum%7;
+
+    return weekDay;
   }
-  noFill();
-  stroke(fore);
-  strokeWeight(3);
 
-  endShape();
+  void showTimeCircle() {
+    pushMatrix();
+    translate(2*width/7, 550);
+    fill(accent);
+    textAlign(CENTER, CENTER);
+    text(0, 0, -80);
+    text(6, 80, 0);
+    text(12, 0, 80);
+    text(18, -80, 0);
+
+    int r=30;
+
+    for (int i=0; i<sets.length; i++) {
+      for (int j=0; j<sets[i].size(); j++) {
+        int time=(sets[i].get(j).h)*60+(sets[i].get(j).mi);
+        float angle=map(time, 0, 1440, 0, TWO_PI)-HALF_PI;
+
+        fill(lightb, 10);
+        noStroke();
+        ellipse((r+i)*cos(angle), (r+i)*sin(angle), 10, 10);
+      }
+    }
+
+    fill(fore);
+    text("Time", 0, 0);
+    popMatrix();
+  }
+
+  void showBarChart() {
+    float spacing=((5*width/7)-40)/(sets.length);
+    float offset=(width/7)+20;
+    float wid=spacing/2;
+
+    int maxGoal=0;
+    for (int i=0; i<goals.length; i++) {
+      if (goals[i]>maxGoal) {
+        maxGoal=goals[i];
+      }
+    }
+
+    int maxVal=max(maxGoal, maxInDay);
+
+    strokeWeight(2);
+    stroke(accent);
+
+    beginShape();
+    for (int i=0; i<sets.length; i++) {
+      int sum=0;
+      int maxSet=0;
+      int amount=0;
+      for (int j=0; j<sets[i].size(); j++) {
+        amount=sets[i].get(j).amount;
+        sum+=amount;
+        if (amount>maxSet) {
+          maxSet=amount;
+        }
+      }
+      fill(darkb);
+      rect(spacing*(i+0.5)+offset-wid/2, 410, wid, -(200*sum/maxVal));
+      fill(lightb);
+      rect(spacing*(i+0.5)+offset-wid/2, 410, wid, -(200*maxSet/maxVal));
+      vertex(spacing*(i+0.5)+offset, 410-(200*goals[i]/maxVal));
+
+
+    }
+    noFill();
+    stroke(fore);
+    strokeWeight(3);
+
+    endShape();
 
 
 
 
-  //----------------------- Axis
+    //----------------------- Axis
 
 
-  //Y-axis
-  stroke(accent);
-  line(width/7, 190, width/7, 430);
-  line(width/7, 190, width/7-5, 195);
-  line(width/7, 190, width/7+5, 195);
+    //Y-axis
+    stroke(accent);
+    line(width/7, 190, width/7, 430);
+    line(width/7, 190, width/7-5, 195);
+    line(width/7, 190, width/7+5, 195);
 
 
-  line(width/7-5, 210, width/7+5, 210);
-  line(width/7-5, 310, width/7+5, 310);
+    line(width/7-5, 210, width/7+5, 210);
+    line(width/7-5, 310, width/7+5, 310);
 
-  textAlign(RIGHT, CENTER);
-  fill(accent);
-  text(maxVal, width/7-15, 210);
-  text(maxVal/2, width/7-15, 310);
+    textAlign(RIGHT, CENTER);
+    fill(accent);
+    text(maxVal, width/7-15, 210);
+    text(maxVal/2, width/7-15, 310);
 
 
 
-  //X-axis
-  line(width/7-20, 410, 6*width/7+20, 410);
-  line(6*width/7+20, 410, 6*width/7+15, 405);
-  line(6*width/7+20, 410, 6*width/7+15, 415);
-}
+    //X-axis
+    line(width/7-20, 410, 6*width/7+20, 410);
+    line(6*width/7+20, 410, 6*width/7+15, 405);
+    line(6*width/7+20, 410, 6*width/7+15, 415);
+  }
 
-void showTotals() {
-  textFont(createFont("AppleSymbols", 20));
-  fill(accent);
-  textAlign(CENTER, CENTER);
-  textSize(20);
-  text("Average per Day", width/5, 80);
-  text("Total #", 2*width/5, 80);
-  text("Max in 1 Day", 3*width/5, 80);
-  text("Max in 1 Set", 4*width/5, 80);
+  void showTotals() {
+    textFont(createFont("AppleSymbols", 20));
+    fill(accent);
+    textAlign(CENTER, CENTER);
+    textSize(20);
+    text("Average per Day", width/5, 80);
+    text("Total #", 2*width/5, 80);
+    text("Max in 1 Day", 3*width/5, 80);
+    text("Max in 1 Set", 4*width/5, 80);
 
-  textSize(30);
-  text(avgPerAllDay, width/5, 120);
-  text(total, 2*width/5, 120);
-  text(maxInDay, 3*width/5, 120);
-  text(maxInSet, 4*width/5, 120);
-}
+    textSize(30);
+    text(avgPerAllDay, width/5, 120);
+    text(total, 2*width/5, 120);
+    text(maxInDay, 3*width/5, 120);
+    text(maxInSet, 4*width/5, 120);
+  }
